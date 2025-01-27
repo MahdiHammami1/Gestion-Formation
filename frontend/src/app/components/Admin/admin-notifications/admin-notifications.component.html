@@ -1,0 +1,21 @@
+
+  <h3>Notification de demande</h3>
+  <div class="timeline">
+    <ul class="timeline-list">
+      <li *ngFor="let notification of notifications" class="timeline-item">
+        <div class="timeline-date">
+          {{ notification.startDate | date:'yyyy' }} - {{ notification.endDate | date:'yyyy' }}
+          <br>
+          <small>{{ notification.online ? 'En ligne' : 'Presentiel' }}</small>
+        </div>
+        <div class="timeline-content">
+          <h4>{{ notification.title }}</h4>
+          <p><strong>Team:</strong> {{ notification.team }}</p>
+          <p><strong>Date Debut:</strong> {{ notification.startDate | date }}</p>
+          <p><strong>Date fin:</strong> {{ notification.endDate | date }}</p>
+          <p><strong>Formateur:</strong> {{ notification.formateurName }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+

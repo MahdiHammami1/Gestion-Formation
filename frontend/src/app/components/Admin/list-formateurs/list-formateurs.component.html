@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="header" style="background-color: #1e2d3b;">
+    <h3>Liste des Formateurs</h3>
+    <div class="actions">
+      <button class="add-btn" (click)="openAddFormateurDialog()">Ajouter un Formateur</button>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Identifiant</th>
+        <th>Email</th>
+        <th>Adresse</th>
+        <th>Téléphone</th>
+        <th>Langues</th> <!-- Updated the column header -->
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let formateur of formateurs">
+        <td><input type="checkbox"></td>
+        <td>{{ formateur.name }}</td>
+        <td>{{ formateur.email }}</td>
+        <td>{{ formateur.adresse }}</td>
+        <td>{{ formateur.telephone }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let language of formateur.languages">
+              {{ language.name }}
+            </li>
+          </ul>
+          <!-- Debugging output -->
+          <div *ngIf="!formateur.languages || formateur.languages.length === 0">
+            No languages found.
+          </div>
+        </td>
+        
+        
+        <td class="actions">
+          <button class="delete-btn" (click)="deleteFormateur(formateur)">Supprimer</button>
+          <button class="add-btn" (click)="editFormateur(formateur)">Modifier</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

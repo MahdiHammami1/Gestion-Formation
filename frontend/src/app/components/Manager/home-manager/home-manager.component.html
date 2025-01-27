@@ -1,0 +1,15 @@
+<app-nav-manager></app-nav-manager>
+
+<!-- Remove the button -->
+<!-- <button class="btn btn-success" (click)="openModal()">Demander une formation</button> -->
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <app-multi-step-wizard></app-multi-step-wizard>
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>

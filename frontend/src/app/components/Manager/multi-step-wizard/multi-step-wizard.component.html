@@ -1,0 +1,90 @@
+<div class="wizard">
+  <h3>Demander une formation</h3>
+
+  <!-- Step 1: Formation Details -->
+  <div *ngIf="currentStep === 0">
+    <div class="step-content">
+      <input type="text" placeholder="Title" [(ngModel)]="formation.title">
+      <input type="text" placeholder="Team" [(ngModel)]="formation.team">
+      <input type="date" placeholder="Start Date" [(ngModel)]="formation.startDate">
+      <input type="date" placeholder="End Date" [(ngModel)]="formation.endDate">
+    </div>
+  </div>
+
+  <!-- Step 2: Course and Language Selection -->
+  <div *ngIf="currentStep === 1" class="step-content">
+    <h4>Étape 2 : Choisir le cours et les langues</h4>
+
+    <div>
+      <h5>Selectionner un cours:</h5>
+      <select [(ngModel)]="selectedCourseId" (change)="onCourseChange(selectedCourseId)">
+        <option value="" disabled>Sélectionner un cours</option>
+        <option *ngFor="let course of courses" [value]="course.id">
+          {{ course.name }}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="languages.length > 0">
+      <h5>Sélectionnez les langues du cours         :</h5>
+      <ul>
+        <li *ngFor="let language of languages">
+          <label>
+            <input
+              type="checkbox"
+              [value]="language.id"
+              [checked]="isLanguageSelected(language.id)"
+              (change)="toggleLanguageSelection(language.id); onLanguageChange()"
+            />
+            {{ language.name }}
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="languages.length === 0 && selectedCourseId">
+      <p>Aucune langue disponible pour le cours sélectionné</p>
+    </div>
+  </div>
+
+  <!-- Step 3: Formateur Selection -->
+  <div *ngIf="currentStep === 2" class="step-content">
+    <h4>Etape 3: Choisir le Formateur</h4>
+
+    <div *ngIf="formateurs.length > 0">
+      <h5>Selectionner un  Formateur depuis la liste:</h5>
+      <ul>
+        <li *ngFor="let formateur of formateurs">
+          <label>
+            <input
+              type="radio"
+              name="formateur"
+              [value]="formateur.id"
+              [(ngModel)]="selectedFormateurId"
+            />
+            {{ formateur.name }} 
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="formateurs.length === 0">
+      <p>Aucun formateur n'est disponible pour les langues sélectionnées.</p>
+    </div>
+  </div>
+
+  <!-- Step 4: Delivery Method -->
+  <div *ngIf="currentStep === 3">
+    <div class="step-content">
+      <h4>Étape 4 : Choisir le mode de livraison</h4>
+      <label><input type="checkbox" [(ngModel)]="formation.online"> En ligne</label>
+      <label><input type="checkbox" [(ngModel)]="formation.presentiel"> Presentiel</label>
+    </div>
+  </div>
+
+  <div class="wizard-buttons">
+    <button class="btn btn-secondary" (click)="prev()" [disabled]="currentStep === 0">Précédent</button>
+    <button class="btn btn-primary" (click)="next()" [disabled]="currentStep === steps.length - 1"> Suivant</button>
+    <button class="btn btn-success" (click)="submit()" *ngIf="currentStep === steps.length - 1">Soumettre</button>
+  </div>
+</div>
