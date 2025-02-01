@@ -1,1 +1,40 @@
 
+pipeline {
+    agent any 
+
+    tools {
+        maven 'M2_HOME' // Assurez-vous que Maven est bien configuré dans Jenkins
+    }
+
+    environment {
+        GIT_CREDENTIALS = 'jenkins-github-pat' // Remplace par ton ID de credentials
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', 
+                    url: 'https://github.com/MahdiHammami1/Gestion-Formation.git',
+                    credentialsId: GIT_CREDENTIALS
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Déploiement en cours... (à adapter selon ton environnement)'
+            }
+        }
+    }
+}
